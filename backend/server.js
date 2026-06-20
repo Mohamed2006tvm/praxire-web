@@ -80,9 +80,13 @@ app.use((err, req, res, next) => {
 });
 
 // ─── Start Server ────────────────────────────────────────
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`\n🚀 Praxire API Server running on port ${PORT}`);
-  console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🔗 Health: http://localhost:${PORT}/api/health\n`);
-});
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`\n🚀 Praxire API Server running on port ${PORT}`);
+    console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🔗 Health: http://localhost:${PORT}/api/health\n`);
+  });
+}
+
+module.exports = app;
