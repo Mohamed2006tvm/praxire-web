@@ -1,0 +1,61 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+export default function SEO({ title, description, keywords }) {
+  const location = useLocation();
+
+  useEffect(() => {
+    // 1. Title
+    const formattedTitle = title ? `${title} | Praxire` : 'Praxire | Software & Web Development Company in Tiruvannamalai';
+    document.title = formattedTitle;
+
+    // Helper function to update or create meta tags
+    const updateMetaTag = (nameAttr, attrVal, content) => {
+      if (!content) return;
+      let element = document.querySelector(`meta[${nameAttr}="${attrVal}"]`);
+      if (!element) {
+        element = document.createElement('meta');
+        element.setAttribute(nameAttr, attrVal);
+        document.head.appendChild(element);
+      }
+      element.setAttribute('content', content);
+    };
+
+    // Helper function to update or create link tags (e.g. canonical)
+    const updateLinkTag = (rel, href) => {
+      if (!href) return;
+      let element = document.querySelector(`link[rel="${rel}"]`);
+      if (!element) {
+        element = document.createElement('link');
+        element.setAttribute('rel', rel);
+        document.head.appendChild(element);
+      }
+      element.setAttribute('href', href);
+    };
+
+    // 2. Meta Description
+    const defaultDesc = 'Praxire is a leading web development, mobile app development, UI/UX design, and custom software development company in Tiruvannamalai. We help startups and businesses build scalable digital solutions.';
+    updateMetaTag('name', 'description', description || defaultDesc);
+
+    // 3. Meta Keywords
+    const defaultKeywords = 'Praxire, Web Development Company in Tiruvannamalai, App Development Company in Tiruvannamalai, Custom Software Development in Tiruvannamalai, Website Designers in Tiruvannamalai, Mobile App Developers in Tiruvannamalai, UI UX Design Services, SaaS Development Company, Startup Product Development, Software Development Agency in Tiruvannamalai, IT company, software companies in tamil nadu, IT companies in tamil nadu, web development in tiruvannamalai, IT service app development in tiruvannamalai, Best IT software company in tamilnadu, Best software company in Tiruvannamalai';
+    updateMetaTag('name', 'keywords', keywords || defaultKeywords);
+
+    // 4. Open Graph Tags
+    updateMetaTag('property', 'og:title', title || 'Praxire | Software & Web Development Company in Tiruvannamalai');
+    updateMetaTag('property', 'og:description', description || defaultDesc);
+    updateMetaTag('property', 'og:type', 'website');
+    updateMetaTag('property', 'og:url', window.location.href);
+
+    // 5. Twitter Tags
+    updateMetaTag('name', 'twitter:card', 'summary_large_image');
+    updateMetaTag('name', 'twitter:title', title || 'Praxire | Software & Web Development Company in Tiruvannamalai');
+    updateMetaTag('name', 'twitter:description', description || defaultDesc);
+
+    // 6. Canonical link
+    updateLinkTag('canonical', window.location.href);
+
+  }, [title, description, keywords, location]);
+
+  return null;
+}

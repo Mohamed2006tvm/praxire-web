@@ -1,0 +1,1086 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String         @id @default(uuid())
+  email                String         @unique
+  password             String
+  firstName            String
+  lastName             String
+  name                 String?
+  phone                String?
+  avatar               String?
+  role                 Role           @default(EMPLOYEE)
+  isActive             Boolean        @default(true)
+  isVerified           Boolean        @default(false)
+  lastLoginAt          DateTime?
+  refreshToken         String?
+  resetToken           String?
+  resetExpires         DateTime?
+  deletedAt            DateTime?
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+  assignedApplications Application[]  @relation("AssignedApplications")
+  applications         Application[]
+  auditLogs            AuditLog[]
+  sentMessages         ChatMessage[]  @relation("SentMessages")
+  client               Client?
+  receivedComplaints   Complaint[]    @relation("ReceivedComplaints")
+  complaints           Complaint[]    @relation("UserComplaints")
+  teamEmployees        Employee[]     @relation("EmployeeTeamLead")
+  employee             Employee?
+  teamInterns          Intern[]       @relation("InternTeamLead")
+  intern               Intern?
+  salesCallLogs        LeadCallLog[]  @relation("SalesCallLogs")
+  assignedLeadSheets   LeadSheet[]    @relation("AssignedLeadSheets")
+  leadSheets           LeadSheet[]    @relation("UploadedLeadSheets")
+  handledLeaves        Leave[]        @relation("HandledLeaves")
+  notifications        Notification[]
+  sessions             Session[]
+  blogs                Blog[]
+
+  @@index([email])
+  @@index([role])
+  @@index([deletedAt])
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  token     String   @unique
+  userAgent String?
+  ipAddress String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+  @@map("sessions")
+}
+
+model Department {
+  id          String     @id @default(uuid())
+  name        String     @unique
+  description String?
+  headId      String?
+  isActive    Boolean    @default(true)
+  deletedAt   DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  employees   Employee[]
+
+  @@map("departments")
+}
+
+model Employee {
+  id                 String              @id @default(uuid())
+  userId             String              @unique
+  employeeId         String              @unique
+  departmentId       String?
+  designation        String?
+  joiningDate        DateTime
+  gender             Gender?
+  dateOfBirth        DateTime?
+  address            String?
+  city               String?
+  state              String?
+  country            String?
+  zipCode            String?
+  emergencyContact   String?
+  emergencyPhone     String?
+  salary             Float?
+  bankName           String?
+  bankAccount        String?
+  ifscCode           String?
+  panNumber          String?
+  aadharNumber       String?
+  skills             String[]
+  deletedAt          DateTime?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  teamLeadId         String?
+  onboardingData     Json?
+  attendance         Attendance[]
+  dailyReports       DailyReport[]       @relation("EmployeeDailyReports")
+  department         Department?         @relation(fields: [departmentId], references: [id])
+  teamLead           User?               @relation("EmployeeTeamLead", fields: [teamLeadId], references: [id])
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documents          File[]
+  mentoring          Intern[]            @relation("MentorInterns")
+  leaves             Leave[]             @relation("EmployeeLeaves")
+  performanceReviews PerformanceReview[]
+  projectMembers     ProjectMember[]
+  assignedTasks      Task[]              @relation("TaskAssignee")
+  createdTasks       Task[]              @relation("TaskCreator")
+  timeEntries        TimeEntry[]
+
+  @@index([departmentId])
+  @@index([employeeId])
+  @@index([deletedAt])
+  @@map("employees")
+}
+
+model Intern {
+  id              String        @id @default(uuid())
+  userId          String        @unique
+  internId        String        @unique
+  mentorId        String?
+  institution     String?
+  course          String?
+  startDate       DateTime
+  endDate         DateTime?
+  stipend         Float?
+  status          String        @default("ACTIVE")
+  skills          String[]
+  evaluationScore Float?
+  certificateUrl  String?
+  deletedAt       DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  city            String?
+  teamLeadId      String?
+  designation     String?
+  onboardingData  Json?
+  attendance      Attendance[]  @relation("InternAttendance")
+  dailyReports    DailyReport[]
+  mentor          Employee?     @relation("MentorInterns", fields: [mentorId], references: [id])
+  teamLead        User?         @relation("InternTeamLead", fields: [teamLeadId], references: [id])
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  leaves          Leave[]       @relation("InternLeaves")
+  assignedTasks   Task[]        @relation("InternTasks")
+
+  @@index([mentorId])
+  @@index([internId])
+  @@index([deletedAt])
+  @@map("interns")
+}
+
+model Client {
+  id             String          @id @default(uuid())
+  userId         String          @unique
+  companyName    String?
+  industry       String?
+  website        String?
+  address        String?
+  city           String?
+  state          String?
+  country        String?
+  gstNumber      String?
+  billingAddress String?
+  notes          String?
+  deletedAt      DateTime?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  communications Communication[]
+  contracts      Contract[]
+  documents      File[]          @relation("ClientDocuments")
+  invoices       Invoice[]
+  leads          Lead[]
+  meetings       Meeting[]
+  projects       Project[]
+
+  @@index([companyName])
+  @@index([deletedAt])
+  @@map("clients")
+}
+
+model Project {
+  id             String          @id @default(uuid())
+  name           String
+  description    String?
+  clientId       String?
+  status         ProjectStatus   @default(PLANNING)
+  priority       TaskPriority    @default(MEDIUM)
+  startDate      DateTime?
+  endDate        DateTime?
+  budget         Float?
+  estimatedHours Float?
+  actualHours    Float?          @default(0)
+  techStack      String[]
+  repoUrl        String?
+  liveUrl        String?
+  deletedAt      DateTime?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  milestones     Milestone[]
+  members        ProjectMember[]
+  client         Client?         @relation(fields: [clientId], references: [id])
+  sprints        Sprint[]
+  tasks          Task[]
+
+  @@index([clientId])
+  @@index([status])
+  @@index([deletedAt])
+  @@map("projects")
+}
+
+model ProjectMember {
+  id         String   @id @default(uuid())
+  projectId  String
+  employeeId String
+  role       String   @default("MEMBER")
+  joinedAt   DateTime @default(now())
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, employeeId])
+  @@map("project_members")
+}
+
+model Sprint {
+  id        String   @id @default(uuid())
+  projectId String
+  name      String
+  goal      String?
+  startDate DateTime
+  endDate   DateTime
+  status    String   @default("PLANNED")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks     Task[]
+
+  @@index([projectId])
+  @@map("sprints")
+}
+
+model Milestone {
+  id          String    @id @default(uuid())
+  projectId   String
+  title       String
+  description String?
+  dueDate     DateTime?
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@map("milestones")
+}
+
+model Task {
+  id               String       @id @default(uuid())
+  projectId        String?
+  sprintId         String?
+  parentId         String?
+  assigneeId       String?
+  internAssigneeId String?
+  creatorId        String?
+  title            String
+  description      String?
+  status           TaskStatus   @default(TODO)
+  priority         TaskPriority @default(MEDIUM)
+  dueDate          DateTime?
+  estimatedHours   Float?
+  actualHours      Float?       @default(0)
+  order            Int          @default(0)
+  deletedAt        DateTime?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  activities       Activity[]
+  comments         Comment[]
+  attachments      File[]       @relation("TaskAttachments")
+  assignee         Employee?    @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  creator          Employee?    @relation("TaskCreator", fields: [creatorId], references: [id])
+  internAssignee   Intern?      @relation("InternTasks", fields: [internAssigneeId], references: [id])
+  parent           Task?        @relation("SubTasks", fields: [parentId], references: [id])
+  subtasks         Task[]       @relation("SubTasks")
+  project          Project?     @relation(fields: [projectId], references: [id])
+  sprint           Sprint?      @relation(fields: [sprintId], references: [id])
+  timeEntries      TimeEntry[]
+
+  @@index([projectId])
+  @@index([assigneeId])
+  @@index([status])
+  @@index([deletedAt])
+  @@map("tasks")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  taskId    String
+  authorId  String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@index([taskId])
+  @@map("comments")
+}
+
+model TimeEntry {
+  id          String    @id @default(uuid())
+  taskId      String
+  employeeId  String
+  description String?
+  startTime   DateTime
+  endTime     DateTime?
+  duration    Float?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  employee    Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  task        Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@index([taskId])
+  @@index([employeeId])
+  @@map("time_entries")
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  taskId    String?
+  userId    String
+  action    String
+  details   String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+  task      Task?    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@index([taskId])
+  @@index([userId])
+  @@map("activities")
+}
+
+model Attendance {
+  id         String    @id @default(uuid())
+  employeeId String?
+  internId   String?
+  date       DateTime  @db.Date
+  checkIn    DateTime?
+  checkOut   DateTime?
+  totalHours Float?
+  status     String    @default("PRESENT")
+  notes      String?
+  ipAddress  String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  employee   Employee? @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  intern     Intern?   @relation("InternAttendance", fields: [internId], references: [id], onDelete: Cascade)
+
+  @@unique([employeeId, date])
+  @@index([date])
+  @@map("attendance")
+}
+
+model Leave {
+  id             String      @id @default(uuid())
+  employeeId     String?
+  type           LeaveType
+  startDate      DateTime    @db.Date
+  endDate        DateTime    @db.Date
+  totalDays      Float
+  reason         String?
+  status         LeaveStatus @default(PENDING)
+  approvedBy     String?
+  approvedAt     DateTime?
+  comments       String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  internId       String?
+  notifiedUserId String?
+  employee       Employee?   @relation("EmployeeLeaves", fields: [employeeId], references: [id], onDelete: Cascade)
+  intern         Intern?     @relation("InternLeaves", fields: [internId], references: [id], onDelete: Cascade)
+  notifiedUser   User?       @relation("HandledLeaves", fields: [notifiedUserId], references: [id])
+
+  @@index([employeeId])
+  @@index([internId])
+  @@index([notifiedUserId])
+  @@index([status])
+  @@map("leaves")
+}
+
+model Holiday {
+  id          String   @id @default(uuid())
+  name        String
+  date        DateTime @db.Date
+  type        String   @default("PUBLIC")
+  description String?
+  createdAt   DateTime @default(now())
+
+  @@index([date])
+  @@map("holidays")
+}
+
+model Invoice {
+  id            String        @id @default(uuid())
+  invoiceNumber String        @unique
+  clientId      String
+  issueDate     DateTime      @db.Date
+  dueDate       DateTime      @db.Date
+  subtotal      Float
+  taxRate       Float         @default(18)
+  taxAmount     Float
+  discount      Float         @default(0)
+  total         Float
+  status        InvoiceStatus @default(DRAFT)
+  notes         String?
+  terms         String?
+  paidAt        DateTime?
+  paidAmount    Float?
+  deletedAt     DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  items         InvoiceItem[]
+  client        Client        @relation(fields: [clientId], references: [id])
+
+  @@index([clientId])
+  @@index([status])
+  @@index([invoiceNumber])
+  @@index([deletedAt])
+  @@map("invoices")
+}
+
+model InvoiceItem {
+  id          String  @id @default(uuid())
+  invoiceId   String
+  description String
+  quantity    Float
+  rate        Float
+  amount      Float
+  hsnCode     String?
+  invoice     Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([invoiceId])
+  @@map("invoice_items")
+}
+
+model Expense {
+  id          String          @id @default(uuid())
+  title       String
+  amount      Float
+  category    ExpenseCategory
+  date        DateTime        @db.Date
+  description String?
+  receipt     String?
+  approvedBy  String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([category])
+  @@index([date])
+  @@map("expenses")
+}
+
+model Lead {
+  id           String        @id @default(uuid())
+  clientId     String?
+  name         String
+  email        String?
+  phone        String?
+  company      String?
+  source       String?
+  stage        PipelineStage @default(NEW_LEAD)
+  value        Float?
+  notes        String?
+  assignedTo   String?
+  nextFollowUp DateTime?
+  wonAt        DateTime?
+  lostAt       DateTime?
+  lostReason   String?
+  deletedAt    DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  followUps    FollowUp[]
+  client       Client?       @relation(fields: [clientId], references: [id])
+  proposals    Proposal[]
+
+  @@index([stage])
+  @@index([assignedTo])
+  @@index([deletedAt])
+  @@map("leads")
+}
+
+model FollowUp {
+  id          String    @id @default(uuid())
+  leadId      String
+  type        String
+  notes       String?
+  scheduledAt DateTime
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  lead        Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([leadId])
+  @@map("follow_ups")
+}
+
+model Proposal {
+  id          String    @id @default(uuid())
+  leadId      String
+  title       String
+  description String?
+  amount      Float?
+  documentUrl String?
+  status      String    @default("DRAFT")
+  sentAt      DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  lead        Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([leadId])
+  @@map("proposals")
+}
+
+model Contract {
+  id          String    @id @default(uuid())
+  clientId    String
+  title       String
+  description String?
+  startDate   DateTime?
+  endDate     DateTime?
+  value       Float?
+  documentUrl String?
+  status      String    @default("ACTIVE")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  client      Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@map("contracts")
+}
+
+model Meeting {
+  id          String   @id @default(uuid())
+  clientId    String?
+  title       String
+  description String?
+  scheduledAt DateTime
+  duration    Int?
+  location    String?
+  meetingUrl  String?
+  notes       String?
+  attendees   String[]
+  createdBy   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  client      Client?  @relation(fields: [clientId], references: [id])
+
+  @@index([clientId])
+  @@index([scheduledAt])
+  @@map("meetings")
+}
+
+model Communication {
+  id       String   @id @default(uuid())
+  clientId String
+  type     String
+  subject  String?
+  content  String?
+  sentBy   String
+  sentAt   DateTime @default(now())
+  client   Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@map("communications")
+}
+
+model DailyReport {
+  id          String    @id @default(uuid())
+  internId    String?
+  employeeId  String?
+  date        DateTime  @db.Date
+  tasks       String
+  challenges  String?
+  learnings   String?
+  hoursWorked Float?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  employee    Employee? @relation("EmployeeDailyReports", fields: [employeeId], references: [id], onDelete: Cascade)
+  intern      Intern?   @relation(fields: [internId], references: [id], onDelete: Cascade)
+
+  @@index([internId])
+  @@index([employeeId])
+  @@index([date])
+  @@map("daily_reports")
+}
+
+model PerformanceReview {
+  id           String   @id @default(uuid())
+  employeeId   String
+  reviewerId   String
+  period       String
+  rating       Float
+  strengths    String?
+  improvements String?
+  goals        String?
+  comments     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  employee     Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@index([employeeId])
+  @@map("performance_reviews")
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  type      NotificationType
+  title     String
+  message   String
+  data      Json?
+  isRead    Boolean          @default(false)
+  readAt    DateTime?
+  createdAt DateTime         @default(now())
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+  @@map("notifications")
+}
+
+model ChatMessage {
+  id          String   @id @default(uuid())
+  senderId    String
+  receiverId  String?
+  channelId   String?
+  content     String
+  attachments String[]
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  sender      User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([channelId])
+  @@map("chat_messages")
+}
+
+model ChatChannel {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  members     String[]
+  isPrivate   Boolean  @default(false)
+  createdBy   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("chat_channels")
+}
+
+model File {
+  id           String       @id @default(uuid())
+  name         String
+  originalName String
+  mimeType     String
+  size         Int
+  url          String
+  category     FileCategory @default(OTHER)
+  uploadedBy   String
+  employeeId   String?
+  clientId     String?
+  taskId       String?
+  createdAt    DateTime     @default(now())
+  client       Client?      @relation("ClientDocuments", fields: [clientId], references: [id])
+  employee     Employee?    @relation(fields: [employeeId], references: [id])
+  task         Task?        @relation("TaskAttachments", fields: [taskId], references: [id])
+
+  @@index([employeeId])
+  @@index([clientId])
+  @@index([taskId])
+  @@map("files")
+}
+
+model Application {
+  id            String            @id @default(uuid())
+  applicationId String            @unique
+  type          ApplicationType
+  status        ApplicationStatus @default(PENDING)
+  firstName     String?
+  lastName      String?
+  email         String?
+  phone         String?
+  city          String?
+  designation   String?
+  institution   String?
+  course        String?
+  skills        String[]
+  notes         String?
+  createdBy     String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  assignedToId  String?
+  formData      Json?
+  assignedTo    User?             @relation("AssignedApplications", fields: [assignedToId], references: [id])
+  creator       User?             @relation(fields: [createdBy], references: [id])
+
+  @@index([applicationId])
+  @@index([status])
+  @@index([type])
+  @@map("applications")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  action    String
+  entity    String
+  entityId  String?
+  oldData   Json?
+  newData   Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([entity, entityId])
+  @@map("audit_logs")
+}
+
+model Complaint {
+  id           String    @id @default(uuid())
+  userId       String
+  targetUserId String?
+  subject      String
+  description  String
+  status       String    @default("PENDING")
+  resolvedBy   String?
+  resolvedAt   DateTime?
+  comments     String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  targetUser   User?     @relation("ReceivedComplaints", fields: [targetUserId], references: [id])
+  user         User      @relation("UserComplaints", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([targetUserId])
+  @@index([status])
+  @@map("complaints")
+}
+
+model Setting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("settings")
+}
+
+model LeadSheet {
+  id           String        @id @default(uuid())
+  originalName String
+  fileUrl      String
+  uploadedById String
+  isForwarded  Boolean       @default(false)
+  forwardedAt  DateTime?
+  createdAt    DateTime      @default(now())
+  parsedData   Json?
+  assignedToId String?
+  status       String        @default("PENDING")
+  callLogs     LeadCallLog[]
+  assignedTo   User?         @relation("AssignedLeadSheets", fields: [assignedToId], references: [id])
+  uploader     User          @relation("UploadedLeadSheets", fields: [uploadedById], references: [id], onDelete: Cascade)
+
+  @@index([uploadedById])
+  @@index([assignedToId])
+  @@map("lead_sheets")
+}
+
+model LeadCallLog {
+  id            String    @id @default(uuid())
+  leadSheetId   String
+  rowIndex      Int
+  calledById    String
+  status        String
+  notes         String?
+  calledAt      DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  qualification String?
+  followUpDays  Int?
+  callAfterDate DateTime?
+  calledBy      User      @relation("SalesCallLogs", fields: [calledById], references: [id])
+  leadSheet     LeadSheet @relation(fields: [leadSheetId], references: [id], onDelete: Cascade)
+
+  @@unique([leadSheetId, rowIndex, calledById])
+  @@index([leadSheetId])
+  @@index([calledById])
+  @@map("lead_call_logs")
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  TL
+  MANAGER
+  EMPLOYEE
+  INTERN
+  CLIENT
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum ProjectStatus {
+  PLANNING
+  DEVELOPMENT
+  TESTING
+  DEPLOYMENT
+  MAINTENANCE
+  COMPLETED
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  REVIEW
+  COMPLETED
+  BLOCKED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum LeaveType {
+  SICK
+  CASUAL
+  EARNED
+  MATERNITY
+  PATERNITY
+  UNPAID
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum ExpenseCategory {
+  SALARY
+  RENT
+  UTILITIES
+  SOFTWARE
+  HARDWARE
+  TRAVEL
+  MARKETING
+  MISC
+}
+
+enum PipelineStage {
+  NEW_LEAD
+  CONTACTED
+  PROPOSAL_SENT
+  NEGOTIATION
+  WON
+  LOST
+}
+
+enum NotificationType {
+  TASK_ASSIGNED
+  TASK_UPDATED
+  PROJECT_UPDATED
+  LEAVE_REQUEST
+  LEAVE_APPROVED
+  LEAVE_REJECTED
+  INVOICE_CREATED
+  MEETING_SCHEDULED
+  ANNOUNCEMENT
+  CHAT_MESSAGE
+  SYSTEM
+}
+
+enum FileCategory {
+  PROFILE
+  DOCUMENT
+  ATTACHMENT
+  INVOICE
+  CONTRACT
+  CERTIFICATE
+  OTHER
+}
+
+enum ApplicationStatus {
+  PENDING
+  REVIEWING
+  REVIEWED
+  SHORTLISTED
+  ACCEPTED
+  REJECTED
+  HIRED
+  APPROVED
+}
+
+enum ApplicationType {
+  EMPLOYEE
+  INTERN
+}
+
+// ─── WEBSITE ENUMS ──────────────────────────────────────────
+
+enum BlogCategory {
+  TECHNOLOGY
+  AI
+  WEB_DEVELOPMENT
+  STARTUPS
+  DIGITAL_MARKETING
+}
+
+// ─── WEBSITE MODELS ─────────────────────────────────────────
+
+model Contact {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  companyName String?
+  message     String
+  type        String   @default("contact")
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@map("contacts")
+}
+
+model Career {
+  id           String              @id @default(cuid())
+  title        String
+  department   String
+  location     String
+  type         String              // Full-time, Part-time, Contract
+  experience   String
+  description  String
+  requirements String[]
+  isActive     Boolean             @default(true)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  applications CareerApplication[]
+
+  @@map("careers")
+}
+
+model CareerApplication {
+  id        String            @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  resumeUrl String
+  coverNote String?
+  status    ApplicationStatus @default(PENDING)
+  careerId  String
+  career    Career            @relation(fields: [careerId], references: [id], onDelete: Cascade)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@map("career_applications")
+}
+
+model InternshipRole {
+  id           String                 @id @default(cuid())
+  title        String
+  department   String
+  duration     String
+  description  String
+  requirements String[]
+  isActive     Boolean                @default(true)
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+  applications InternshipApplication[]
+
+  @@map("internship_roles")
+}
+
+model InternshipApplication {
+  id         String            @id @default(cuid())
+  name       String
+  email      String
+  phone      String
+  resumeUrl  String
+  coverNote  String?
+  status     ApplicationStatus @default(PENDING)
+  roleId     String
+  role       InternshipRole    @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  @@map("internship_applications")
+}
+
+model Blog {
+  id          String       @id @default(cuid())
+  title       String
+  slug        String       @unique
+  excerpt     String
+  content     String
+  coverImage  String?
+  category    BlogCategory
+  tags        String[]
+  isPublished Boolean      @default(false)
+  authorId    String
+  author      User         @relation(fields: [authorId], references: [id])
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("blogs")
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  position  String
+  company   String
+  content   String
+  avatar    String?
+  rating    Int      @default(5)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@map("testimonials")
+}
+
+model PortfolioProject {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  category     String   // Websites, Mobile Apps, Software, AI Projects
+  image        String?
+  technologies String[]
+  liveUrl      String?
+  githubUrl    String?
+  isFeatured   Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("portfolio_projects")
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@map("newsletter_subscribers")
+}
