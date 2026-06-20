@@ -35,11 +35,7 @@ router.get('/', async (req, res) => {
     });
     res.json({ careers });
   } catch (error) {
-    res.status(500).json({
-      error: 'Failed to fetch careers.',
-      details: error.message,
-      stack: error.stack
-    });
+    res.status(500).json({ error: 'Failed to fetch careers.' });
   }
 });
 
