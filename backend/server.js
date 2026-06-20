@@ -51,6 +51,11 @@ app.use('/api/newsletter', require('./routes/newsletter'));
 app.use('/api/analytics', require('./routes/analytics'));
 app.use('/api/chat', require('./routes/chat'));
 
+// ─── Root Route ──────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to the Praxire API Server', status: 'Running' });
+});
+
 // ─── Health Check ────────────────────────────────────────
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString(), service: 'Praxire API' });
