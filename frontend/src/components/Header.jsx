@@ -116,8 +116,8 @@ export default function Header() {
     <header
       ref={dropdownRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isTransparent
-          ? 'bg-gradient-to-b from-black/60 via-black/20 to-transparent border-transparent shadow-none'
-          : 'bg-white/95 backdrop-blur-md ' + (isScrolled ? 'shadow-md shadow-black/5' : 'border-b border-gray-100')
+        ? 'bg-gradient-to-b from-black/60 via-black/20 to-transparent border-transparent shadow-none'
+        : 'bg-white/95 backdrop-blur-md ' + (isScrolled ? 'shadow-md shadow-black/5' : 'border-b border-gray-100')
         }`}
       onMouseLeave={() => setActiveDropdown(null)}
     >
@@ -134,8 +134,8 @@ export default function Header() {
             </div>
             <span
               className={`text-2xl font-extrabold italic tracking-tight transition-colors duration-300 ${isTransparent
-                  ? 'text-white group-hover:text-white/80'
-                  : 'text-slate-900 group-hover:text-primary'
+                ? 'text-white group-hover:text-white/80'
+                : 'text-slate-900 group-hover:text-primary'
                 }`}
               style={{ fontFamily: 'var(--font-logo), sans-serif' }}
             >
@@ -163,10 +163,10 @@ export default function Header() {
                       setActiveDropdown(activeDropdown === link.dropdownType ? null : link.dropdownType || null)
                     }
                     className={`flex items-center gap-1 py-3 text-sm font-semibold transition-colors duration-200 ${activeDropdown === link.dropdownType || pathname.startsWith(link.href)
-                        ? 'text-primary'
-                        : isTransparent
-                          ? 'text-white hover:text-white/80'
-                          : 'text-gray-800 hover:text-primary'
+                      ? 'text-primary'
+                      : isTransparent
+                        ? 'text-white hover:text-white/80'
+                        : 'text-gray-800 hover:text-primary'
                       }`}
                   >
                     {link.label}
@@ -180,10 +180,10 @@ export default function Header() {
                   <Link
                     to={link.href}
                     className={`flex items-center gap-1 py-3 text-sm font-semibold transition-colors duration-200 ${pathname === link.href
-                        ? 'text-primary'
-                        : isTransparent
-                          ? 'text-white hover:text-white/80'
-                          : 'text-gray-800 hover:text-primary'
+                      ? 'text-primary'
+                      : isTransparent
+                        ? 'text-white hover:text-white/80'
+                        : 'text-gray-800 hover:text-primary'
                       }`}
                   >
                     {link.label}
@@ -295,8 +295,8 @@ export default function Header() {
                           setActiveDropdown(null);
                         }}
                         className={`flex items-center justify-between w-full px-4 py-2.5 text-xs text-left transition-colors ${lang === l.code
-                            ? 'text-primary bg-primary/5 font-bold'
-                            : 'text-gray-700 hover:bg-gray-50 hover:text-primary'
+                          ? 'text-primary bg-primary/5 font-bold'
+                          : 'text-gray-700 hover:bg-gray-50 hover:text-primary'
                           }`}
                       >
                         <span className="flex items-center gap-2">
@@ -372,9 +372,9 @@ export default function Header() {
                   .map((category) => (
                     <div key={category.id} className="space-y-4">
                       <h4 className={`text-[10px] font-extrabold uppercase tracking-widest border-b pb-2 transition-colors duration-300 ${category.id === 'software-development' ? 'text-blue-500 border-blue-100' :
-                          category.id === 'application-development' ? 'text-indigo-500 border-indigo-100' :
-                            category.id === 'technology-services' ? 'text-purple-500 border-purple-100' :
-                              'text-emerald-500 border-emerald-100'
+                        category.id === 'application-development' ? 'text-indigo-500 border-indigo-100' :
+                          category.id === 'technology-services' ? 'text-purple-500 border-purple-100' :
+                            'text-emerald-500 border-emerald-100'
                         }`}>
                         {category.label}
                       </h4>
@@ -400,11 +400,11 @@ export default function Header() {
 
                               <div className="relative z-10 flex items-start gap-2.5">
                                 <div className={`mt-0.5 shrink-0 transition-all group-hover:scale-110 group-hover:rotate-3 duration-200 ${hoveredServiceId === s.id
-                                    ? (s.category === 'software-development' ? 'text-blue-500' :
-                                      s.category === 'application-development' ? 'text-indigo-500' :
-                                        s.category === 'technology-services' ? 'text-purple-500' :
-                                          'text-emerald-500')
-                                    : 'text-gray-400 group-hover:text-primary'
+                                  ? (s.category === 'software-development' ? 'text-blue-500' :
+                                    s.category === 'application-development' ? 'text-indigo-500' :
+                                      s.category === 'technology-services' ? 'text-purple-500' :
+                                        'text-emerald-500')
+                                  : 'text-gray-400 group-hover:text-primary'
                                   }`}>
                                   <s.icon size={15} />
                                 </div>
@@ -439,18 +439,18 @@ export default function Header() {
                     >
                       {/* Decorative colored glow background based on category */}
                       <div className={`absolute -right-20 -top-20 w-40 h-40 rounded-full blur-3xl opacity-25 transition-colors duration-300 ${hoveredService.category === 'software-development' ? 'bg-blue-400' :
-                          hoveredService.category === 'application-development' ? 'bg-indigo-400' :
-                            hoveredService.category === 'technology-services' ? 'bg-purple-400' :
-                              'bg-emerald-400'
+                        hoveredService.category === 'application-development' ? 'bg-indigo-400' :
+                          hoveredService.category === 'technology-services' ? 'bg-purple-400' :
+                            'bg-emerald-400'
                         }`} />
 
                       <div className="relative z-10 space-y-4">
                         {/* Category and Icon */}
                         <div className="flex items-center justify-between">
                           <span className={`text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full border ${hoveredService.category === 'software-development' ? 'text-blue-600 bg-blue-50/80 border-blue-100' :
-                              hoveredService.category === 'application-development' ? 'text-indigo-600 bg-indigo-50/80 border-indigo-100' :
-                                hoveredService.category === 'technology-services' ? 'text-purple-600 bg-purple-50/80 border-purple-100' :
-                                  'text-emerald-600 bg-emerald-50/80 border-emerald-100'
+                            hoveredService.category === 'application-development' ? 'text-indigo-600 bg-indigo-50/80 border-indigo-100' :
+                              hoveredService.category === 'technology-services' ? 'text-purple-600 bg-purple-50/80 border-purple-100' :
+                                'text-emerald-600 bg-emerald-50/80 border-emerald-100'
                             }`}>
                             {
                               categoriesData.find(cat => cat.id === hoveredService.category)?.label || hoveredService.category
@@ -458,9 +458,9 @@ export default function Header() {
                           </span>
 
                           <div className={`p-2 rounded-xl text-white shadow-md ${hoveredService.category === 'software-development' ? 'bg-gradient-to-br from-blue-500 to-blue-600 shadow-blue-500/10' :
-                              hoveredService.category === 'application-development' ? 'bg-gradient-to-br from-indigo-500 to-indigo-600 shadow-indigo-500/10' :
-                                hoveredService.category === 'technology-services' ? 'bg-gradient-to-br from-purple-500 to-purple-600 shadow-purple-500/10' :
-                                  'bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-emerald-500/10'
+                            hoveredService.category === 'application-development' ? 'bg-gradient-to-br from-indigo-500 to-indigo-600 shadow-indigo-500/10' :
+                              hoveredService.category === 'technology-services' ? 'bg-gradient-to-br from-purple-500 to-purple-600 shadow-purple-500/10' :
+                                'bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-emerald-500/10'
                             }`}>
                             <hoveredService.icon size={18} />
                           </div>
@@ -496,9 +496,9 @@ export default function Header() {
                                 className="flex items-center gap-1.5 text-xs text-text-secondary font-medium"
                               >
                                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${hoveredService.category === 'software-development' ? 'bg-blue-500' :
-                                    hoveredService.category === 'application-development' ? 'bg-indigo-500' :
-                                      hoveredService.category === 'technology-services' ? 'bg-purple-500' :
-                                        'bg-emerald-500'
+                                  hoveredService.category === 'application-development' ? 'bg-indigo-500' :
+                                    hoveredService.category === 'technology-services' ? 'bg-purple-500' :
+                                      'bg-emerald-500'
                                   }`} />
                                 <span className="truncate">{feature}</span>
                               </motion.li>
@@ -512,9 +512,9 @@ export default function Header() {
                         <Link
                           to={`/services/${hoveredService.id}`}
                           className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-2 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 duration-200 ${hoveredService.category === 'software-development' ? 'bg-blue-600 hover:bg-blue-700 shadow-blue-500/10' :
-                              hoveredService.category === 'application-development' ? 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-500/10' :
-                                hoveredService.category === 'technology-services' ? 'bg-purple-600 hover:bg-purple-700 shadow-purple-500/10' :
-                                  'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/10'
+                            hoveredService.category === 'application-development' ? 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-500/10' :
+                              hoveredService.category === 'technology-services' ? 'bg-purple-600 hover:bg-purple-700 shadow-purple-500/10' :
+                                'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/10'
                             }`}
                         >
                           <span>
@@ -612,10 +612,10 @@ export default function Header() {
                         <FiChevronDown
                           size={16}
                           className={`transition-transform duration-200 ${(link.dropdownType === 'services' && isMobileServicesOpen) ||
-                              (link.dropdownType === 'about' && isMobileAboutOpen) ||
-                              (link.dropdownType === 'careers' && isMobileCareersOpen)
-                              ? 'rotate-180'
-                              : ''
+                            (link.dropdownType === 'about' && isMobileAboutOpen) ||
+                            (link.dropdownType === 'careers' && isMobileCareersOpen)
+                            ? 'rotate-180'
+                            : ''
                             }`}
                         />
                       </button>
@@ -713,8 +713,8 @@ export default function Header() {
                     <Link
                       to={link.href}
                       className={`block px-4 py-3 rounded-lg text-sm font-bold transition-colors ${pathname === link.href
-                          ? 'text-primary bg-primary/5'
-                          : 'text-gray-800 hover:text-primary hover:bg-gray-50'
+                        ? 'text-primary bg-primary/5'
+                        : 'text-gray-800 hover:text-primary hover:bg-gray-50'
                         }`}
                     >
                       {link.label}
@@ -757,8 +757,8 @@ export default function Header() {
                             setIsMobileMenuOpen(false);
                           }}
                           className={`flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-xs font-semibold ${lang === l.code
-                              ? 'text-primary bg-primary/5'
-                              : 'text-text-primary hover:text-primary hover:bg-gray-50'
+                            ? 'text-primary bg-primary/5'
+                            : 'text-text-primary hover:text-primary hover:bg-gray-50'
                             }`}
                         >
                           <span className="flex items-center gap-2">

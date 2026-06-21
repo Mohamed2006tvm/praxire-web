@@ -30,7 +30,8 @@ app.use(cors({
     
     const isAllowed = allowedOrigins.includes(origin) || 
                       /^http:\/\/localhost:\d+$/.test(origin) ||
-                      /\.vercel\.app$/.test(origin);
+                      /\.vercel\.app$/.test(origin) ||
+                      /^https?:\/\/(?:.*\.)?praxire\.com(?::\d+)?$/.test(origin);
                       
     callback(null, isAllowed);
   },
