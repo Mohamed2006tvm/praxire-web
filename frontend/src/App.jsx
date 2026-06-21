@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop';
 import Layout from './Layout';
 import Home from './pages/Home';
 import Services from './pages/Services';
@@ -22,6 +23,7 @@ import AdminRoute from './components/admin/AdminRoute';
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* ── Public site (with Header/Footer layout) ── */}
         <Route element={<Layout />}>
