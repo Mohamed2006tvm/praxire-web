@@ -73,7 +73,7 @@ export const translations = {
         title: 'Services We Specialize In',
         subtitle:
           'Deliver innovative, modern solutions crafted by engineers with global expertise to grow your company presence and infrastructure.',
-        viewAll: 'View All 30+ Services',
+        viewAll: 'View All 15+ Services',
         items: [
           { title: 'Custom Software Development', desc: 'Tailored enterprise software, ERP, CRM, and product engineering solutions.' },
           { title: 'Mobile App Development', desc: 'Native iOS/Android and cross-platform apps built with React Native & Flutter.' },
