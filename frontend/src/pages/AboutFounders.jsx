@@ -46,7 +46,42 @@ export default function AboutFounders() {
         title="About Founders | Vishal G & Mohamed M"
         description="Meet the visionary leadership team behind Praxire. Vishal G and Mohamed M guide the architectural standards and client solution engineering at our software company in Tiruvannamalai."
         keywords="Praxire Founders, Vishal G, Mohamed M, Software Company in Tiruvannamalai, IT Company in Tiruvannamalai, Web Development Company in Tiruvannamalai, Startup Technology Partner"
+        image="/logo.png"
       />
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "name": "About Founders | Vishal G & Mohamed M",
+          "description": "Meet the visionary leadership team behind Praxire. Vishal G and Mohamed M guide the architectural standards and client solution engineering at our software company in Tiruvannamalai.",
+          "mainEntity": [
+            {
+              "@type": "Person",
+              "name": "Vishal G",
+              "jobTitle": "Co-Founder",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Praxire",
+                "url": "https://praxire.com"
+              },
+              "image": "https://praxire.com/images/founders/vishal.png",
+              "sameAs": "https://www.linkedin.com/in/vishal-g-a61943301"
+            },
+            {
+              "@type": "Person",
+              "name": "Mohamed M",
+              "jobTitle": "Co-Founder",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Praxire",
+                "url": "https://praxire.com"
+              },
+              "image": "https://praxire.com/images/founders/mohamed.png",
+              "sameAs": "https://www.linkedin.com/in/mohamed-m-719176328?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+            }
+          ]
+        })}
+      </script>
       {/* ─── Hero Header ───────────────────────────────────── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-slate-800 to-gray-950 py-24 text-white border-b border-gray-800">
         <div className="absolute inset-0 bg-[grid-linear-gradient] opacity-10 pointer-events-none" />

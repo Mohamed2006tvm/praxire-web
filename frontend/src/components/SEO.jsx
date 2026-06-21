@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-export default function SEO({ title, description, keywords }) {
+export default function SEO({ title, description, keywords, image, robots }) {
   const location = useLocation();
 
   useEffect(() => {
@@ -47,15 +47,25 @@ export default function SEO({ title, description, keywords }) {
     updateMetaTag('property', 'og:type', 'website');
     updateMetaTag('property', 'og:url', window.location.href);
 
+    // Set og:image and twitter:image
+    const siteOrigin = window.location.origin;
+    const defaultImage = '/logo.png';
+    const ogImage = image ? (image.startsWith('http') ? image : `${siteOrigin}${image}`) : `${siteOrigin}${defaultImage}`;
+    updateMetaTag('property', 'og:image', ogImage);
+
     // 5. Twitter Tags
     updateMetaTag('name', 'twitter:card', 'summary_large_image');
     updateMetaTag('name', 'twitter:title', title || 'Praxire | Software & Web Development Company in Tiruvannamalai');
     updateMetaTag('name', 'twitter:description', description || defaultDesc);
+    updateMetaTag('name', 'twitter:image', ogImage);
 
-    // 6. Canonical link
+    // 6. Robots Tag
+    updateMetaTag('name', 'robots', robots || 'index, follow');
+
+    // 7. Canonical link
     updateLinkTag('canonical', window.location.href);
 
-  }, [title, description, keywords, location]);
+  }, [title, description, keywords, image, robots, location]);
 
   return null;
 }

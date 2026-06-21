@@ -78,6 +78,7 @@ export default function Portfolio() {
         title="Our Portfolio | Web & Mobile App Projects"
         description="Browse the Praxire portfolio featuring our custom software development, mobile app development, CRM, ERP, and professional website design projects."
         keywords="Praxire Portfolio, Custom ERP Solutions, E-commerce Website Development, Website Designers in Tiruvannamalai, Web Development Company in Tiruvannamalai, Mobile App Developers in Tamil Nadu"
+        robots="noimageindex"
       />
       {/* ─── Hero Section ───────────────────────────────────── */}
       <section className="bg-surface-card py-20 border-b border-border text-center">
