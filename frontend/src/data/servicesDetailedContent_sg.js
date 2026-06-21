@@ -182,20 +182,7 @@ export const servicesDetailedContent = {
       { phase: '04', title: '数据库优化', description: '重新索引数据库列并清理日志历史以加快查询速度。' }
     ]
   },
-  'cloud-application': {
-    detailedExplanation: '我们从头构建无服务器和容器化的云应用程序。利用 AWS、Azure 和 GCP，我们部署弹性架构，可即时扩展以匹配用户需求，确保高可用性和成本效益。',
-    keyDifferentiators: [
-      { feature: '弹性设计', praxireWay: '无服务器部署 (AWS Lambda/Fargate)，无需配置即可处理 100k+ 用户。', industryStandard: '在突然的流量激增期间发生故障的固定服务器结构。' },
-      { feature: '基础设施即代码', praxireWay: 'Terraform 脚本记录了云布局，允许在几分钟内重建完整的基础设施。', industryStandard: '手动云配置，使环境复制变得困难。' },
-      { feature: '成本优化', praxireWay: '在非高峰时段自动缩减资源，减少基础设施成本。', industryStandard: '闲置服务器 24/7 运行，产生不必要的成本。' }
-    ],
-    howWeDeliver: [
-      { phase: '01', title: '云端规划', description: '评估数据库大小、流量估算并选择区域服务器。' },
-      { phase: '02', title: 'Terraform 编写', description: '为 VPC、数据库集群和容器池编写基础设施代码。' },
-      { phase: '03', title: '应用编码', description: '开发无服务器后端逻辑和动态网页前端。' },
-      { phase: '04', title: '性能测试', description: '模拟并发用户以测试服务器可扩展性并验证降级触发器。' }
-    ]
-  },
+
   'application-integration': {
     detailedExplanation: 'Praxire 将孤立的业务工具（ERP、CRM、支付网关和物流 API）连接到统一的生态系统中。我们构建定制的 API 集成，实施安全的 OAuth 系统，并设置队列通道以防止在网络中断期间丢失数据。',
     keyDifferentiators: [

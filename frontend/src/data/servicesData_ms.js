@@ -81,13 +81,7 @@ export const allServices = originalServices.map((service) => {
         description: 'Perkhidmatan penyelenggaraan proaktif untuk memastikan aplikasi anda kekal selamat, dikemas kini, dan berprestasi pada kecekapan puncak.',
         features: ['Penyelenggaraan Pencegahan', 'Naik Taraf Versi', 'Ujian Keserasian', 'Sandaran & Pemulihan'],
       };
-    case 'cloud-application':
-      return {
-        ...service,
-        title: 'Pembangunan Aplikasi Awan',
-        description: 'Aplikasi berutamakan awan yang dibina di AWS, Azure, atau GCP dengan seni bina tanpa pelayan, dikontenakan, dan berskala automatik.',
-        features: ['Fungsi Tanpa Pelayan', 'Penggunaan Kontena', 'Skala Automatik', 'Persediaan Pelbagai Wilayah'],
-      };
+
     case 'application-integration':
       return {
         ...service,

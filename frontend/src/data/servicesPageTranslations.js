@@ -4,9 +4,9 @@ export const servicesPageTranslations = {
       heroBadge: 'Our Comprehensive Services',
       heroTitle1: 'End-to-End',
       heroTitle2: 'IT Solutions',
-      heroSubtitle: 'From software consulting to cloud deployment, we provide 20+ specialized technology services to modernize your business, accelerate growth, and stay ahead of competition.',
+      heroSubtitle: 'From software consulting to cloud deployment, we provide 15+ specialized technology services to modernize your business, accelerate growth, and stay ahead of competition.',
       stats: [
-        { value: '20+', label: 'Services Offered' },
+        { value: '15+', label: 'Services Offered' },
         { value: '20+', label: 'Projects Delivered' },
         { value: '100%', label: 'Client Satisfaction' }
       ],
@@ -80,9 +80,9 @@ export const servicesPageTranslations = {
       heroBadge: 'Perkhidmatan Komprehensif Kami',
       heroTitle1: 'Penyelesaian IT',
       heroTitle2: 'Hujung-ke-Hujung',
-      heroSubtitle: 'Dari perundingan perisian hingga penyebaran awan, kami menyediakan 20+ perkhidmatan teknologi khusus untuk memodenkan perniagaan anda, mempercepat pertumbuhan, dan terus maju dalam persaingan.',
+      heroSubtitle: 'Dari perundingan perisian hingga penyebaran awan, kami menyediakan 15+ perkhidmatan teknologi khusus untuk memodenkan perniagaan anda, mempercepat pertumbuhan, dan terus maju dalam persaingan.',
       stats: [
-        { value: '20+', label: 'Perkhidmatan Ditawarkan' },
+        { value: '15+', label: 'Perkhidmatan Ditawarkan' },
         { value: '20+', label: 'Projek Disampaikan' },
         { value: '100%', label: 'Kepuasan Pelanggan' }
       ],
@@ -156,9 +156,9 @@ export const servicesPageTranslations = {
       heroBadge: '我们的全面服务',
       heroTitle1: '端到端',
       heroTitle2: 'IT 解决方案',
-      heroSubtitle: '从软件咨询到云部署，我们提供 20+ 专业技术服务，助力企业现代化、加速增长并在竞争中保持领先。',
+      heroSubtitle: '从软件咨询到云部署，我们提供 15+ 专业技术服务，助力企业现代化、加速增长并在竞争中保持领先。',
       stats: [
-        { value: '20+', label: '提供服务' },
+        { value: '15+', label: '提供服务' },
         { value: '20+', label: '交付项目' },
         { value: '100%', label: '客户满意度' }
       ],
@@ -232,9 +232,9 @@ export const servicesPageTranslations = {
       heroBadge: 'எங்கள் விரிவான சேவைகள்',
       heroTitle1: 'முழுமையான',
       heroTitle2: 'IT தீர்வுகள்',
-      heroSubtitle: 'மென்பொருள் ஆலோசனை முதல் கிளவுட் வரிசைப்படுத்தல் வரை, உங்கள் வணிகத்தை நவீனப்படுத்தவும், வளர்ச்சியை துரிதப்படுத்தவும் மற்றும் போட்டியில் முன்னிலையில் இருக்கவும் 20+ பிரத்யேக தொழில்நுட்ப சேவைகளை நாங்கள் வழங்குகிறோம்.',
+      heroSubtitle: 'மென்பொருள் ஆலோசனை முதல் கிளவுட் வரிசைப்படுத்தல் வரை, உங்கள் வணிகத்தை நவீனப்படுத்தவும், வளர்ச்சியை துரிதப்படுத்தவும் மற்றும் போட்டியில் முன்னிலையில் இருக்கவும் 15+ பிரத்யேக தொழில்நுட்ப சேவைகளை நாங்கள் வழங்குகிறோம்.',
       stats: [
-        { value: '20+', label: 'சேவைகள் வழங்கப்படுகின்றன' },
+        { value: '15+', label: 'சேவைகள் வழங்கப்படுகின்றன' },
         { value: '20+', label: 'திட்டங்கள் வழங்கப்பட்டன' },
         { value: '100%', label: 'வாடிக்கையாளர் திருப்தி' }
       ],

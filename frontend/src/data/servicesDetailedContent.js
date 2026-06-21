@@ -187,20 +187,7 @@ export const servicesDetailedContent = {
       { phase: '04', title: 'Database Optimization', description: 'Re-indexing database columns and cleaning log history to speed up queries.' }
     ]
   },
-  'cloud-application': {
-    detailedExplanation: 'We build serverless, containerized cloud applications from the ground up. Utilizing AWS, Azure, and GCP, we deploy elastic architectures that scale instantly to match user demand, ensuring high availability and cost-efficiency.',
-    keyDifferentiators: [
-      { feature: 'Scalability Design', praxireWay: 'Serverless deployment (AWS Lambda/Fargate) that handles 100k+ users without configuration.', industryStandard: 'Fixed server structures that fail during sudden traffic spikes.' },
-      { feature: 'Infrastructure as Code', praxireWay: 'Terraform scripts documenting the cloud layout, allowing complete infrastructure rebuilds in minutes.', industryStandard: 'Manual cloud configuration that makes environment copying difficult.' },
-      { feature: 'Cost Optimization', praxireWay: 'Automatic resource scale-down during off-peak hours, cutting infrastructure costs.', industryStandard: 'Idle servers running 24/7, generating unnecessary costs.' }
-    ],
-    howWeDeliver: [
-      { phase: '01', title: 'Cloud Mapping', description: 'Scoping database sizing, traffic estimates, and selecting regional servers.' },
-      { phase: '02', title: 'Terraform Scripting', description: 'Writing infrastructure code for VPCs, database clusters, and container pools.' },
-      { phase: '03', title: 'Application Code', description: 'Developing serverless backend logic and dynamic web frontends.' },
-      { phase: '04', title: 'Performance Testing', description: 'Simulating concurrent users to test server scalability and verify fallback triggers.' }
-    ]
-  },
+
   'application-integration': {
     detailedExplanation: 'Praxire connects disconnected business tools (ERPs, CRMs, Payment Gateways, and Logistics APIs) into unified ecosystems. We build custom API integrations, implement secure OAuth systems, and set up queue channels to prevent data loss during network disruptions.',
     keyDifferentiators: [

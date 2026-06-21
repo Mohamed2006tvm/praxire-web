@@ -6,7 +6,7 @@ import {
   FiCode,
   FiSmartphone,
   FiCpu,
-  FiCloud,
+  FiShoppingCart,
   FiBarChart2,
   FiTrendingUp,
   FiShield,
@@ -18,6 +18,7 @@ import {
   FiLayout,
   FiServer,
   FiDatabase,
+  FiGlobe,
   FiTerminal,
   FiActivity,
   FiChevronDown,
@@ -138,7 +139,7 @@ export default function Home() {
     testimonialsAPI.getAll().then((res) => setTestimonials(res.data.testimonials || [])).catch(() => { });
   }, []);
 
-  const serviceIcons = [FiCode, FiSmartphone, FiCpu, FiCloud, FiBarChart2, FiTrendingUp];
+  const serviceIcons = [FiCode, FiGlobe, FiSmartphone, FiServer, FiLayout, FiShoppingCart];
   const services = t.home.services.items.map((item, index) => ({
     icon: serviceIcons[index] || FiCode,
     title: item.title,

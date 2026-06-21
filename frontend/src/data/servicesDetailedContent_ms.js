@@ -182,20 +182,7 @@ export const servicesDetailedContent = {
       { phase: '04', title: 'Pengoptimuman Pangkalan Data', description: 'Mengindeks semula lajur pangkalan data dan membersihkan sejarah log untuk mempercepatkan pertanyaan.' }
     ]
   },
-  'cloud-application': {
-    detailedExplanation: 'Kami membina aplikasi awan tanpa pelayan dan dikontenakan dari awal. Menggunakan AWS, Azure, dan GCP, kami menggunakan seni bina elastik yang berskala serta-merta untuk memadankan permintaan pengguna, memastikan ketersediaan tinggi dan kecekapan kos.',
-    keyDifferentiators: [
-      { feature: 'Reka Bentuk Kebolehskalaan', praxireWay: 'Penggunaan tanpa pelayan (AWS Lambda/Fargate) yang mengendalikan 100k+ pengguna tanpa konfigurasi.', industryStandard: 'Struktur pelayan tetap yang gagal semasa lonjakan trafik mengejut.' },
-      { feature: 'Infrastruktur sebagai Kod', praxireWay: 'Skrip Terraform mendokumentasikan susun atur awan, membolehkan pembinaan semula infrastruktur lengkap dalam beberapa minit.', industryStandard: 'Konfigurasi awan manual yang menyukarkan penyalinan persekitaran.' },
-      { feature: 'Pengoptimuman Kos', praxireWay: 'Skala turun sumber automatik semasa waktu luar puncak, mengurangkan kos infrastruktur.', industryStandard: 'Pelayan melahu berjalan 24/7, menjana kos yang tidak perlu.' }
-    ],
-    howWeDeliver: [
-      { phase: '01', title: 'Pemetaan Awan', description: 'Menilai saiz pangkalan data, anggaran trafik, dan memilih pelayan wilayah.' },
-      { phase: '02', title: 'Penskripan Terraform', description: 'Menulis kod infrastruktur untuk VPC, kluster pangkalan data, dan kolam kontena.' },
-      { phase: '03', title: 'Kod Aplikasi', description: 'Membangunkan logik backend tanpa pelayan dan frontend web dinamik.' },
-      { phase: '04', title: 'Ujian Prestasi', description: 'Mensimulasikan pengguna serentak untuk menguji kebolehskalaan pelayan dan mengesahkan pencetus fallback.' }
-    ]
-  },
+
   'application-integration': {
     detailedExplanation: 'Praxire menghubungkan alat perniagaan yang terputus (ERP, CRM, Gerbang Pembayaran, dan API Logistik) ke dalam ekosistem bersatu. Kami membina integrasi API tersuai, melaksanakan sistem OAuth yang selamat, dan menyediakan saluran baris gilir untuk mengelakkan kehilangan data semasa gangguan rangkaian.',
     keyDifferentiators: [

@@ -81,13 +81,7 @@ export const allServices = originalServices.map((service) => {
         description: '主动维护服务，确保您的应用程序保持安全、更新并以最高效率运行。',
         features: ['预防性维护', '版本升级', '兼容性测试', '备份与恢复'],
       };
-    case 'cloud-application':
-      return {
-        ...service,
-        title: '云应用开发',
-        description: '在 AWS、Azure 或 GCP 上构建的云优先应用，采用无服务器、容器化和自动伸缩架构。',
-        features: ['无服务器函数', '容器部署', '自动伸缩', '多区域部署'],
-      };
+
     case 'application-integration':
       return {
         ...service,

@@ -139,14 +139,7 @@ export const allServices = [
     description: 'Proactive maintenance services to ensure your applications remain secure, updated, and performing at peak efficiency.',
     features: ['Preventive Maintenance', 'Version Upgrades', 'Compatibility Testing', 'Backup & Recovery'],
   },
-  {
-    id: 'cloud-application',
-    category: 'application-development',
-    icon: FiCloud,
-    title: 'Cloud Application Development',
-    description: 'Cloud-first applications built on AWS, Azure, or GCP with serverless, containerized, and auto-scaling architectures.',
-    features: ['Serverless Functions', 'Container Deployment', 'Auto-scaling', 'Multi-region Setup'],
-  },
+
   {
     id: 'application-integration',
     category: 'application-development',
