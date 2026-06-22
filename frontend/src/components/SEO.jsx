@@ -49,7 +49,7 @@ export default function SEO({ title, description, keywords, image, robots }) {
 
     // Set og:image and twitter:image
     const siteOrigin = window.location.origin;
-    const defaultImage = '/logo.png';
+    const defaultImage = '/logo-square.png';
 
     // Remove any existing dynamic og:image tags to prevent duplicates
     document.querySelectorAll('meta[property="og:image"]').forEach(el => el.remove());
