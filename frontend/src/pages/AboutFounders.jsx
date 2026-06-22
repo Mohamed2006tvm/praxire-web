@@ -10,7 +10,7 @@ const foundersList = [
     name: 'Vishal G', 
     role: 'Co-Founder', 
     initials: 'VG',
-    image: '/images/founders/vishal.png',
+    image: '/images/founders/vishal-g-co-founder-praxire.png',
     bioKey: 'vishalBio',
     linkedin: 'https://www.linkedin.com/in/vishal-g-a61943301',
     email: 'g.vishal1608@gmail.com'
@@ -19,7 +19,7 @@ const foundersList = [
     name: 'Mohamed M', 
     role: 'Co-Founder ', 
     initials: 'MM',
-    image: '/images/founders/mohamed.png',
+    image: '/images/founders/mohamed-m-co-founder-praxire.png',
     bioKey: 'mohamedBio',
     linkedin: 'https://www.linkedin.com/in/mohamed-m-719176328?utm_source=share_via&utm_content=profile&utm_medium=member_android',
     email: 'mohamed2006tvm@gmail.com'
@@ -46,7 +46,10 @@ export default function AboutFounders() {
         title="About Founders | Vishal G & Mohamed M"
         description="Meet the visionary leadership team behind Praxire. Vishal G and Mohamed M guide the architectural standards and client solution engineering at our software company in Tiruvannamalai."
         keywords="Praxire Founders, Vishal G, Mohamed M, Software Company in Tiruvannamalai, IT Company in Tiruvannamalai, Web Development Company in Tiruvannamalai, Startup Technology Partner"
-        image="/logo.png"
+        image={[
+          "/images/founders/mohamed-m-co-founder-praxire.png",
+          "/images/founders/vishal-g-co-founder-praxire.png"
+        ]}
       />
       <script type="application/ld+json">
         {JSON.stringify({
@@ -64,7 +67,7 @@ export default function AboutFounders() {
                 "name": "Praxire",
                 "url": "https://praxire.com"
               },
-              "image": "https://praxire.com/images/founders/vishal.png",
+              "image": "https://praxire.com/images/founders/vishal-g-co-founder-praxire.png",
               "sameAs": "https://www.linkedin.com/in/vishal-g-a61943301"
             },
             {
@@ -76,7 +79,7 @@ export default function AboutFounders() {
                 "name": "Praxire",
                 "url": "https://praxire.com"
               },
-              "image": "https://praxire.com/images/founders/mohamed.png",
+              "image": "https://praxire.com/images/founders/mohamed-m-co-founder-praxire.png",
               "sameAs": "https://www.linkedin.com/in/mohamed-m-719176328?utm_source=share_via&utm_content=profile&utm_medium=member_android"
             }
           ]
@@ -118,6 +121,8 @@ export default function AboutFounders() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.2 }}
               className="bg-surface-card p-8 md:p-10 rounded-3xl border border-border shadow-sm flex flex-col justify-between card-hover relative overflow-hidden"
+              itemScope
+              itemType="https://schema.org/Person"
             >
               <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-accent" />
               <div>
@@ -125,8 +130,9 @@ export default function AboutFounders() {
                   {f.image ? (
                     <img 
                       src={f.image} 
-                      alt={`${f.name} - Co-Founder of Praxire, Software Company in Tiruvannamalai`} 
+                      alt={`${f.name} - Co-Founder of Praxire, Software and Web Development Company in Tiruvannamalai`} 
                       className="w-20 h-20 rounded-full object-cover shadow-inner shrink-0 border border-border"
+                      itemProp="image"
                     />
                   ) : (
                     <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center font-bold text-3xl text-primary shadow-inner shrink-0">
@@ -134,12 +140,13 @@ export default function AboutFounders() {
                     </div>
                   )}
                   <div>
-                    <h2 className="text-2xl font-bold text-text-primary">{f.name}</h2>
-                    <p className="text-primary text-sm font-semibold mt-1">{f.role}</p>
+                    <h2 className="text-2xl font-bold text-text-primary" itemProp="name">{f.name}</h2>
+                    <p className="text-primary text-sm font-semibold mt-1" itemProp="jobTitle">{f.role}</p>
+                    <meta itemProp="worksFor" content="Praxire" />
                   </div>
                 </div>
                 
-                <p className="text-text-secondary leading-relaxed text-base">
+                <p className="text-text-secondary leading-relaxed text-base" itemProp="description">
                   {t.about.leadership[f.bioKey]}
                 </p>
               </div>

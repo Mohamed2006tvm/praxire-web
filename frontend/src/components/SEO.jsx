@@ -50,14 +50,32 @@ export default function SEO({ title, description, keywords, image, robots }) {
     // Set og:image and twitter:image
     const siteOrigin = window.location.origin;
     const defaultImage = '/logo.png';
-    const ogImage = image ? (image.startsWith('http') ? image : `${siteOrigin}${image}`) : `${siteOrigin}${defaultImage}`;
-    updateMetaTag('property', 'og:image', ogImage);
+
+    // Remove any existing dynamic og:image tags to prevent duplicates
+    document.querySelectorAll('meta[property="og:image"]').forEach(el => el.remove());
+
+    if (Array.isArray(image)) {
+      image.forEach((img, idx) => {
+        const ogImgUrl = img.startsWith('http') ? img : `${siteOrigin}${img}`;
+        const newMeta = document.createElement('meta');
+        newMeta.setAttribute('property', 'og:image');
+        newMeta.setAttribute('content', ogImgUrl);
+        document.head.appendChild(newMeta);
+
+        if (idx === 0) {
+          updateMetaTag('name', 'twitter:image', ogImgUrl);
+        }
+      });
+    } else {
+      const ogImage = image ? (image.startsWith('http') ? image : `${siteOrigin}${image}`) : `${siteOrigin}${defaultImage}`;
+      updateMetaTag('property', 'og:image', ogImage);
+      updateMetaTag('name', 'twitter:image', ogImage);
+    }
 
     // 5. Twitter Tags
     updateMetaTag('name', 'twitter:card', 'summary_large_image');
     updateMetaTag('name', 'twitter:title', title || 'Praxire | Software & Web Development Company in Tiruvannamalai');
     updateMetaTag('name', 'twitter:description', description || defaultDesc);
-    updateMetaTag('name', 'twitter:image', ogImage);
 
     // 6. Robots Tag
     updateMetaTag('name', 'robots', robots || 'index, follow');
