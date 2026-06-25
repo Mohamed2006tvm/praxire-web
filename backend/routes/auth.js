@@ -73,6 +73,8 @@ router.post('/register', authenticate, authorize('SUPER_ADMIN'), async (req, res
         email,
         password: hashedPassword,
         role: role || 'ADMIN',
+        firstName: name ? name.split(' ')[0] : 'Admin',
+        lastName: name && name.split(' ').length > 1 ? name.split(' ').slice(1).join(' ') : 'User',
       },
       select: { id: true, name: true, email: true, role: true, createdAt: true },
     });

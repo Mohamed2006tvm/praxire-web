@@ -23,6 +23,8 @@ async function main() {
       email: adminEmail,
       password: hashedPassword,
       role: 'SUPER_ADMIN',
+      firstName: 'Super',
+      lastName: 'Admin',
     },
   });
   console.log('✅ Super Admin created:', superAdmin.email);
@@ -70,7 +72,7 @@ async function main() {
 
   // ─── 3. Seed Portfolio Projects ────────────────────────
   console.log('🧹 Purging old projects...');
-  await prisma.project.deleteMany({});
+  await prisma.portfolioProject.deleteMany({});
 
   const projects = [
     {
@@ -108,7 +110,7 @@ async function main() {
   ];
 
   for (const p of projects) {
-    await prisma.project.create({ data: p });
+    await prisma.portfolioProject.create({ data: p });
   }
   console.log('✅ Projects seeded:', projects.length);
 
