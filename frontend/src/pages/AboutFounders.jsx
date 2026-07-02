@@ -8,16 +8,16 @@ import SEO from '../components/SEO';
 const foundersList = [
   { 
     name: 'Vishal G', 
-    role: 'Co-Founder', 
+    role: 'CEO', 
     initials: 'VG',
-    image: '/images/founders/vishal-g-co-founder-praxire.png',
+    image: '/images/founders/vishal-g-ceo-praxire.png',
     bioKey: 'vishalBio',
     linkedin: 'https://www.linkedin.com/in/vishal-g-a61943301',
     email: 'g.vishal1608@gmail.com'
   },
   { 
     name: 'Mohamed M', 
-    role: 'Co-Founder ', 
+    role: 'Co-Founder', 
     initials: 'MM',
     image: '/images/founders/mohamed-m-co-founder-praxire.png',
     bioKey: 'mohamedBio',
@@ -43,31 +43,31 @@ export default function AboutFounders() {
   return (
     <div className="bg-white min-h-screen text-text-primary">
       <SEO 
-        title="About Founders | Vishal G & Mohamed M"
-        description="Meet the visionary leadership team behind Praxire. Vishal G and Mohamed M guide the architectural standards and client solution engineering at our software company in Tiruvannamalai."
-        keywords="Praxire Founders, Vishal G, Mohamed M, Software Company in Tiruvannamalai, IT Company in Tiruvannamalai, Web Development Company in Tiruvannamalai, Startup Technology Partner"
+        title="Praxire Leadership | Vishal G, CEO & Mohamed M, Co-Founder"
+        description="Meet the visionary leadership team behind Praxire. Vishal G (CEO) and Mohamed M (Co-Founder) guide the architectural standards and client solution engineering at our software company in Tiruvannamalai."
+        keywords="Praxire Leadership, Vishal G CEO, Mohamed M Co-Founder, Software Company in Tiruvannamalai, IT Company in Tiruvannamalai, Web Development Company in Tiruvannamalai, Startup Technology Partner"
         image={[
           "/images/founders/mohamed-m-co-founder-praxire.png",
-          "/images/founders/vishal-g-co-founder-praxire.png"
+          "/images/founders/vishal-g-ceo-praxire.png"
         ]}
       />
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "AboutPage",
-          "name": "About Founders | Vishal G & Mohamed M",
-          "description": "Meet the visionary leadership team behind Praxire. Vishal G and Mohamed M guide the architectural standards and client solution engineering at our software company in Tiruvannamalai.",
+          "name": "Praxire Leadership | Vishal G, CEO & Mohamed M, Co-Founder",
+          "description": "Meet the visionary leadership team behind Praxire. Vishal G (CEO) and Mohamed M (Co-Founder) guide the architectural standards and client solution engineering at our software company in Tiruvannamalai.",
           "mainEntity": [
             {
               "@type": "Person",
               "name": "Vishal G",
-              "jobTitle": "Co-Founder",
+              "jobTitle": "CEO",
               "worksFor": {
                 "@type": "Organization",
                 "name": "Praxire",
                 "url": "https://praxire.com"
               },
-              "image": "https://praxire.com/images/founders/vishal-g-co-founder-praxire.png",
+              "image": "https://praxire.com/images/founders/vishal-g-ceo-praxire.png",
               "sameAs": "https://www.linkedin.com/in/vishal-g-a61943301"
             },
             {
@@ -130,7 +130,7 @@ export default function AboutFounders() {
                   {f.image ? (
                     <img 
                       src={f.image} 
-                      alt={`${f.name} - Co-Founder of Praxire, Software and Web Development Company in Tiruvannamalai`} 
+                      alt={`${f.name} - ${f.role} of Praxire, Software and Web Development Company in Tiruvannamalai`} 
                       className="w-20 h-20 rounded-full object-cover shadow-inner shrink-0 border border-border"
                       itemProp="image"
                     />
